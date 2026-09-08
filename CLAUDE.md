@@ -1,4 +1,4 @@
-# CLAUDE.md — the House Calls container
+# CLAUDE.md: the House Calls container
 
 This repo is the cross-project home for House Calls (the cbapex family
 pattern: the container owns what is the same across subprojects; each
