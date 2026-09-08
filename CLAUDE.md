@@ -34,7 +34,8 @@ the live site. "Keep the work we've done so far" is standing doctrine.
 - LOCATE: the farm insurance-claims platform spec doc (operator says it
   exists; not found in terrapulse workspaces, clarion, or bradley.io
   docs; ask the operator where it lives).
-- Deere deep-dive and independent-provider enrollment path (settlement
-  of 2026-07-08 makes this live).
+- Deere deep-dive: DONE 2026-09-08, docs/DEERE.md (settlement
+  obligations, tooling costs, API surface, month-one plan). Next
+  concrete step is month-one item 1: developer.deere.com sandbox.
 - Migration plan for hunt/tools code from bradley.io into subprojects
   here (write before moving anything).

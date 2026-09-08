@@ -60,10 +60,10 @@ entryway. Farms deal with ALL the trades."
    local farm still outranks a distant one at equal signal). Sources:
    direct research, MSU Extension, farm bureau county chapters, USDA
    census cuts, ag press (Michigan Farm News, Farmers' Advance).
-2. **Deere deep-dive** (ordered): the Operations Center data model, the
-   repair-tooling access the settlement mandates and how an independent
-   provider actually enrolls, what a House Calls "equipment data
-   liberation" service legally and technically looks like in month one.
+2. **Deere deep-dive** (DONE 2026-09-08, see docs/DEERE.md): the
+   settlement's concrete obligations, the tooling price list, the
+   Operations Center API surface, five House Calls theses, and a
+   month-one plan starting with the free self-serve sandbox.
 3. **The claims platform** (tracked): farmer files insurance claims
    with mapping data; TerraPulse perils + CLU boundaries + acreage
    reporting as the spine. Blocked on locating the original spec doc,
