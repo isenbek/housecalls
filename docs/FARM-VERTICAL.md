@@ -60,6 +60,12 @@ entryway. Farms deal with ALL the trades."
    local farm still outranks a distant one at equal signal). Sources:
    direct research, MSU Extension, farm bureau county chapters, USDA
    census cuts, ag press (Michigan Farm News, Farmers' Advance).
+   PASS 1 DONE 2026-09-08: 30 farms and farm-facing producers entered
+   from three MDARD grant releases (prospect base 18 to 48, map 4 to
+   27 counties, statewide including the UP). All park at the
+   published-contact gate; the farm letter template awaits operator
+   approval. Record: bradley.io repo docs/housecalls/
+   farm-harvest-notes.md.
 2. **Deere deep-dive** (DONE 2026-09-08, see docs/DEERE.md): the
    settlement's concrete obligations, the tooling price list, the
    Operations Center API surface, five House Calls theses, and a
