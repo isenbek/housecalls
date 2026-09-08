@@ -217,6 +217,12 @@ map carry forward as-is with the home-county bonus unchanged.
 1. Register on developer.deere.com, create the app, run the OAuth
    consent flow against a sandbox org, and pull fields + operations
    end to end. Zero dollars, proves the integrator path.
+   STATUS 2026-09-08: our side is built, tested, and live (callback
+   endpoint, CLI helper, minimal-scope plan org1/ag1/eq1); blocked on
+   the operator's account errand because email verification and the
+   API Development License Agreement click-through are human gates.
+   Recipe: bradley.io repo docs/housecalls/deere-sandbox.md, rendered
+   at housecalls.bradley.io/housecalls/docs.
 2. Prototype "export my farm" into the harness: org → DuckDB schema →
    HCPK ciphertext backup. One demo, on our own hardware, public
    write-up on the ledger.
