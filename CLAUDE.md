@@ -37,5 +37,12 @@ the live site. "Keep the work we've done so far" is standing doctrine.
 - Deere deep-dive: DONE 2026-09-08, docs/DEERE.md (settlement
   obligations, tooling costs, API surface, month-one plan). Next
   concrete step is month-one item 1: developer.deere.com sandbox.
+  Class-claims dates corrected 2026-09-10: deadline 2026-12-31,
+  hearing 2027-01-19.
+- MI ag world model: iteration 0 DONE 2026-09-10, docs/AG-MI.md
+  (structure, dollars, ownership, players, trends, policy, equipment,
+  software, staffing, vendors, news, contact angles). Regenerate via
+  intel/industry_world_model.yaml through cbintel; iteration 1 folds
+  in cbintel run job_5e3c4585bdf34a55 when it completes.
 - Migration plan for hunt/tools code from bradley.io into subprojects
   here (write before moving anything).

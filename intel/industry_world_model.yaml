@@ -1,0 +1,328 @@
+# Industry World Model Pipeline
+# Tweak of cbintel's corporate_intelligence.yaml: one level up: an INDUSTRY
+# in a REGION instead of a single company. Built 2026-09-10 for the House
+# Calls farm vertical (first run: agriculture / Michigan); the dimensions are
+# the operator's list and stay industry-agnostic.
+#
+# Run inline against cbintel (no server-side registration needed):
+#   jq -n --rawfile g intel/industry_world_model.yaml \
+#     '{"graph":$g,"params":{"industry":"agriculture","region":"Michigan"}}' \
+#   | cbcli intel jobs graph -p "$(cat)"
+#
+# Iterations: the briefing's Company Roster feeds corporate_intelligence.yaml
+# per-company; the News section feeds follow_story.yaml per-thread.
+
+name: industry_world_model
+version: "1.0.0"
+description: "Comprehensive world model of an industry in a region: structure, players, money, rules, tools, people"
+
+inputs:
+  - name: industry
+    type: string
+    required: true
+    description: Industry to model (e.g. "agriculture")
+
+  - name: region
+    type: string
+    required: true
+    description: Region of interest (e.g. "Michigan")
+
+  - name: focus
+    type: string
+    required: false
+    default: ""
+    description: Optional lens for synthesis (e.g. "technology adoption by small and mid-size operations")
+
+max_parallel: 6
+timeout_seconds: 5400
+
+stages:
+  # Stage 1: Recall prior knowledge
+  - name: recall
+    description: Check existing knowledge
+    sequential:
+      - op: recall
+        params:
+          entity_type: industry
+          entity_name: "{region} {industry}"
+        output: prior_knowledge
+
+  # Stage 2: Parallel crawl discovery: the eleven dimensions
+  - name: discover
+    description: Deep iterative discovery across industry dimensions
+    parallel:
+      - op: crawl
+        params:
+          query: "{region} {industry} industry structure census number of operations size distribution types sectors statistics"
+          max_urls: 100
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_structure
+
+      - op: crawl
+        params:
+          query: "{region} {industry} largest companies top producers major players biggest operations revenue"
+          max_urls: 100
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_players
+
+      - op: crawl
+        params:
+          query: "{region} {industry} ownership family-owned cooperative corporate consolidation acquisitions succession institutional investors"
+          max_urls: 80
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_ownership
+
+      - op: crawl
+        params:
+          query: "{region} {industry} trends growth emerging declining 2025 2026 outlook forecast disruption"
+          max_urls: 80
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_trends
+
+      - op: crawl
+        params:
+          query: "{region} {industry} economic contribution revenue by sector receipts exports GDP dollars breakdown"
+          max_urls: 80
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_dollars
+
+      - op: crawl
+        params:
+          query: "{region} {industry} laws regulations tax exemptions credits government programs grants subsidies insurance requirements"
+          max_urls: 100
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_policy
+
+      - op: crawl
+        params:
+          query: "{region} {industry} equipment machinery brands dealers fleet technology hardware right to repair"
+          max_urls: 80
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_equipment
+
+      - op: crawl
+        params:
+          query: "{region} {industry} software management systems platforms SaaS data records technology adoption vendors"
+          max_urls: 80
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_software
+
+      - op: crawl
+        params:
+          query: "{region} {industry} labor workforce staffing wages shortage seasonal workers employment hiring"
+          max_urls: 80
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_staffing
+
+      - op: crawl
+        params:
+          query: "{region} {industry} suppliers vendors services contractors inputs distributors trade partners"
+          max_urls: 80
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_vendors
+
+      - op: crawl
+        params:
+          query: "{region} {industry} news announcements expansion investment closures September 2026"
+          max_urls: 80
+          recursive: true
+          max_depth: 2
+          max_child_queries: 2
+        output: crawl_news
+
+  # Stage 3: Synthesize
+  - name: synthesize
+    description: Generate structured world model and briefing
+    sequential:
+      - op: chat
+        params:
+          messages:
+            - role: system
+              content: |
+                You are an industry analyst building a structured world model
+                from research summaries. Be factual and thorough. Prefer dated,
+                sourced figures; mark estimates as estimates.
+            - role: user
+              content: |
+                Build a comprehensive JSON world model of the {industry} industry in {region}.
+                Focus lens: {focus}
+
+                Prior knowledge: {prior_knowledge}
+
+                STRUCTURE: {crawl_structure.summary}
+                PLAYERS: {crawl_players.summary}
+                OWNERSHIP: {crawl_ownership.summary}
+                TRENDS: {crawl_trends.summary}
+                DOLLARS: {crawl_dollars.summary}
+                POLICY: {crawl_policy.summary}
+                EQUIPMENT: {crawl_equipment.summary}
+                SOFTWARE: {crawl_software.summary}
+                STAFFING: {crawl_staffing.summary}
+                VENDORS: {crawl_vendors.summary}
+                NEWS: {crawl_news.summary}
+
+                Return JSON:
+                {
+                  "industry_info": {"industry": "", "region": "", "total_operations": "", "employment": "", "economic_contribution": ""},
+                  "size_distribution": [{"segment": "", "count": "", "share": "", "notes": ""}],
+                  "sectors": [{"name": "", "size": "", "trend": "growing|stable|declining", "notes": ""}],
+                  "major_players": [{"name": "", "sector": "", "size": "", "ownership": "", "headquarters": "", "notes": ""}],
+                  "ownership_models": [{"model": "", "prevalence": "", "trajectory": "", "notes": ""}],
+                  "trends_rising": [{"trend": "", "evidence": "", "implication": ""}],
+                  "trends_fading": [{"trend": "", "evidence": "", "implication": ""}],
+                  "dollars": {"total": "", "by_sector": [{"sector": "", "amount": ""}], "exports": "", "notes": ""},
+                  "policy": {"laws": [], "tax_breaks": [], "programs": [{"name": "", "agency": "", "dollars": "", "deadline": ""}], "insurance": []},
+                  "equipment_universe": [{"category": "", "brands": [], "dealers": "", "notes": ""}],
+                  "software_landscape": [{"category": "", "products": [], "adoption": "", "gaps": ""}],
+                  "staffing": {"workforce_size": "", "pain_points": [], "wage_ranges": "", "programs": []},
+                  "vendor_ecosystem": [{"category": "", "examples": [], "notes": ""}],
+                  "recent_news": [{"date": "", "headline": "", "entities": [], "why_it_matters": ""}],
+                  "data_gaps": [],
+                  "confidence": "low|medium|high"
+                }
+          response_format:
+            type: json_object
+          max_tokens: 6000
+        output: world_model_json
+
+      - op: chat
+        params:
+          messages:
+            - role: system
+              content: |
+                You are an industry analyst writing a comprehensive world-model
+                briefing for a services business planning client outreach in
+                this industry. Be factual, well-organized, and concrete. Use
+                markdown. Every load-bearing number gets a date or a source
+                name; unsourced claims are flagged as such.
+            - role: user
+              content: |
+                Write a comprehensive world-model briefing for the {industry} industry in {region}.
+                Focus lens: {focus}
+
+                World model: {world_model_json}
+
+                Research:
+                Structure: {crawl_structure.summary}
+                Players: {crawl_players.summary}
+                Ownership: {crawl_ownership.summary}
+                Trends: {crawl_trends.summary}
+                Dollars: {crawl_dollars.summary}
+                Policy: {crawl_policy.summary}
+                Equipment: {crawl_equipment.summary}
+                Software: {crawl_software.summary}
+                Staffing: {crawl_staffing.summary}
+                Vendors: {crawl_vendors.summary}
+                News: {crawl_news.summary}
+
+                Gaps: {crawl_structure.gaps} {crawl_dollars.gaps} {crawl_policy.gaps}
+
+                Format:
+                # {region} {industry} Industry World Model
+                ## Executive Summary
+                ## Type & Size Distribution
+                ## The Large Players
+                (table: Name | Sector | Size | Ownership | HQ)
+                ## Ownership Models
+                ## Rising & Fading Trends
+                ## The Dollars
+                ## Laws, Tax Breaks, Programs & Insurance
+                ## Equipment Universe
+                ## Software & Management Landscape
+                ## Staffing & Labor
+                ## Vendor Ecosystem
+                ## Recent News
+                (table: Date | Headline | Entities | Why it matters)
+                ## Client-Contact Angles
+                (what this model implies for who to contact, about what, and when)
+                ## Intelligence Gaps
+                ## Sources & Confidence
+          max_tokens: 8000
+        output: briefing_report
+
+  # Stage 4: Memorize
+  - name: memorize
+    description: Store findings
+    parallel:
+      - op: memorize
+        input: briefing_report
+        params:
+          entity_type: industry
+          entity_name: "{region} {industry}"
+          categories: [structure, players, ownership, trends, dollars, policy, equipment, software, staffing, vendors, news]
+        output: memory_result
+
+      - op: store_facts
+        input: world_model_json
+        params:
+          entity_type: industry
+          entity_name: "{region} {industry}"
+        output: facts_result
+
+  # Stage 5: Entity extraction + append
+  - name: entity_extraction
+    description: Extract entities and append reference tables
+    sequential:
+      - op: chat
+        params:
+          messages:
+            - role: system
+              content: Extract every named entity from this briefing. Return JSON.
+            - role: user
+              content: |
+                {briefing_report}
+
+                Return: {"companies": [{"name": "", "sector": "", "relevance": ""}], "persons": [{"name": "", "role": "", "connection": ""}], "agencies_programs": [{"name": "", "type": "", "relevance": ""}], "products": [{"name": "", "category": "", "relevance": ""}]}
+          response_format:
+            type: json_object
+          max_tokens: 4000
+        output: entity_grid
+
+      - op: chat
+        params:
+          messages:
+            - role: system
+              content: Append entity reference tables to the end of this briefing. Do NOT modify existing content.
+            - role: user
+              content: |
+                {briefing_report}
+
+                ---
+                Entity data: {entity_grid}
+
+                Append:
+                ---
+                ## Appendix: Entity Reference
+                ### Companies (table: Name | Sector | Relevance)
+                ### Persons (table: Name | Role | Connection)
+                ### Agencies & Programs (table: Name | Type | Relevance)
+                ### Products (table: Name | Category | Relevance)
+          max_tokens: 10000
+        output: briefing_report
+
+outputs:
+  - briefing_report
+  - world_model_json
+  - entity_grid
+  - prior_knowledge
+  - memory_result

@@ -81,11 +81,13 @@ ftc.gov/system/files/ftc_gov/pdf/Deere-JointMotion-StipOrd.pdf):
   bury them.
 - The **$99M class settlement** (the parallel private antitrust case)
   pays farmers who bought Deere repair services; claims deadline
-  **2026-10-15**, fairness hearing **2026-10-29**, interest accruing
+  **2026-12-31**, fairness hearing **2027-01-19** (dates extended from
+  the originally noticed 2026-10-15/10-29; verified against
+  deererepairsettlement.com 2026-09-10), interest accruing
   from 2026-01-15, administered at deererepairsettlement.com. This one
   is farmer-facing money, not IRP tooling, but every Michigan farm
   conversation this fall can honestly include "you may have a claim,
-  the deadline is October 15." That is a door-opener that costs us
+  the deadline is December 31." That is a door-opener that costs us
   nothing and is simply true.
 
 **What is NOT yet settled in practice**: the order says "fair and
@@ -179,7 +181,7 @@ Deere).
    most of the evidence package an insurance claim needs. Blocked on
    locating the original spec doc, but the Deere API is clearly the
    missing per-farm data source for it.
-5. **The class-settlement conversation opener.** Until 2026-10-15,
+5. **The class-settlement conversation opener.** Until 2026-12-31,
    "you may have money coming from the Deere settlement, here is the
    official site" is a true, useful, zero-cost thing to tell every
    Michigan farmer we meet. We sell nothing with it; that is the point.
@@ -237,7 +239,7 @@ map carry forward as-is with the home-county bonus unchanged.
 - FTC v. Deere joint motion and stipulated order (2026-07-08):
   ftc.gov/system/files/ftc_gov/pdf/Deere-JointMotion-StipOrd.pdf
 - Class settlement administration: deererepairsettlement.com
-  (deadline 2026-10-15, hearing 2026-10-29)
+  (deadline 2026-12-31, hearing 2027-01-19; re-checked 2026-09-10)
 - Developer portal and API docs: developer.deere.com
 - USDA NASS Census of Agriculture 2022, Michigan profile:
   nass.usda.gov/Statistics_by_State/Michigan/
