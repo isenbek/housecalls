@@ -18,7 +18,7 @@ through cbintel: the reusable template `intel/industry_world_model.yaml`
 (this repo) regenerates the whole model on demand, and its Company
 Roster feeds cbintel's `corporate_intelligence` template per company,
 its News section feeds `follow_story` per thread. First cbintel run
-submitted 2026-09-10 (job_5e3c4585bdf34a55); its output folds in as
+submitted 2026-09-10 (job_92825f91817f4dbf, after a first attempt failed on the graph_yaml field name); its output folds in as
 iteration 1. Sibling docs: DEERE.md (equipment/right-to-repair depth),
 FARM-VERTICAL.md (the plan), and the flagship's
 docs/housecalls/farm-harvest-notes.md (the MDARD prospect vein).

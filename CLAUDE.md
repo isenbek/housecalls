@@ -43,6 +43,6 @@ the live site. "Keep the work we've done so far" is standing doctrine.
   (structure, dollars, ownership, players, trends, policy, equipment,
   software, staffing, vendors, news, contact angles). Regenerate via
   intel/industry_world_model.yaml through cbintel; iteration 1 folds
-  in cbintel run job_5e3c4585bdf34a55 when it completes.
+  in cbintel run job_92825f91817f4dbf when it completes.
 - Migration plan for hunt/tools code from bradley.io into subprojects
   here (write before moving anything).
