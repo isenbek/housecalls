@@ -6,7 +6,7 @@
 #
 # Run inline against cbintel (no server-side registration needed):
 #   jq -n --rawfile g intel/industry_world_model.yaml \
-#     '{"graph":$g,"params":{"industry":"agriculture","region":"Michigan"}}' \
+#     '{"graph_yaml":$g,"params":{"industry":"agriculture","region":"Michigan"}}' \
 #   | cbcli intel jobs graph -p "$(cat)"
 #
 # Iterations: the briefing's Company Roster feeds corporate_intelligence.yaml
