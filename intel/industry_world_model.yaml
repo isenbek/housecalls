@@ -43,7 +43,7 @@ stages:
     sequential:
       - op: recall
         params:
-          entity_type: industry
+          entity_type: topic
           entity_name: "{region} {industry}"
         output: prior_knowledge
 
@@ -267,7 +267,7 @@ stages:
       - op: memorize
         input: briefing_report
         params:
-          entity_type: industry
+          entity_type: topic
           entity_name: "{region} {industry}"
           categories: [structure, players, ownership, trends, dollars, policy, equipment, software, staffing, vendors, news]
         output: memory_result
@@ -275,7 +275,7 @@ stages:
       - op: store_facts
         input: world_model_json
         params:
-          entity_type: industry
+          entity_type: topic
           entity_name: "{region} {industry}"
         output: facts_result
 

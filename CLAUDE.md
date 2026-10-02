@@ -42,7 +42,9 @@ the live site. "Keep the work we've done so far" is standing doctrine.
 - MI ag world model: iteration 0 DONE 2026-09-10, docs/AG-MI.md
   (structure, dollars, ownership, players, trends, policy, equipment,
   software, staffing, vendors, news, contact angles). Regenerate via
-  intel/industry_world_model.yaml through cbintel; iteration 1 folds
-  in cbintel run job_e46daa49dfff47f4 when it completes.
+  intel/industry_world_model.yaml through cbintel. PARKED 2026-10-02:
+  the 2026-10-01 run (job_e46daa49dfff47f4) "succeeded" empty; the
+  crawl-to-synthesis hand-off delivers no text and needs debugging
+  before another submit. Raw outputs: /mnt/ursa/housecalls/intel/.
 - Migration plan for hunt/tools code from bradley.io into subprojects
   here (write before moving anything).

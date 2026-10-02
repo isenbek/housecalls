@@ -17,9 +17,16 @@ structure plus a company roster plus current news. Deeper cuts run
 through cbintel: the reusable template `intel/industry_world_model.yaml`
 (this repo) regenerates the whole model on demand, and its Company
 Roster feeds cbintel's `corporate_intelligence` template per company,
-its News section feeds `follow_story` per thread. First cbintel run
-submitted 2026-10-01 (job_e46daa49dfff47f4; earlier attempts died to a wrong field name, a service restart, and a GPU out-of-memory in the synthesis chat, and the 2026-09-15 run aged out of the job store unread); its output folds in as
-iteration 1. Sibling docs: DEERE.md (equipment/right-to-repair depth),
+its News section feeds `follow_story` per thread. The cbintel route has not yet produced
+an iteration 1. Five submissions died in turn to a wrong field name, a
+service restart, a GPU out-of-memory, an aged-out job record, and
+finally a run on 2026-10-01 (job_e46daa49dfff47f4) that reported
+success with nothing in it: the synthesis step received no crawl text
+and the small local chat model answered "Okay". Known causes are a
+bad entity type in the template (fixed: `topic`, not `industry`) and
+an unwired or empty crawl-to-synthesis hand-off (not yet debugged).
+Until that is fixed, iteration 0 below stands on its own sourced
+research. Sibling docs: DEERE.md (equipment/right-to-repair depth),
 FARM-VERTICAL.md (the plan), and the flagship's
 docs/housecalls/farm-harvest-notes.md (the MDARD prospect vein).
 
