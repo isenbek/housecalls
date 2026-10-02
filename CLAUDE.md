@@ -31,6 +31,9 @@ the live site. "Keep the work we've done so far" is standing doctrine.
 
 ## Standing trackers
 
+- **PAUSED 2026-10-02 by the operator.** State and resume checklist:
+  docs/CHECKPOINT-2026-10-02.md. Read it before touching outbound.
+
 - LOCATE: the farm insurance-claims platform spec doc (operator says it
   exists; not found in terrapulse workspaces, clarion, or bradley.io
   docs; ask the operator where it lives).
